@@ -5,11 +5,12 @@
     <title>Glossary – TCFV Resources</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="bg-[#EEE6F6] text-[#2c2135] font-montserrat">
+  <body class="bg-accent text-dark font-montserrat">
     <div id="nav-placeholder"></div>
     <!-- Header -->
-    <header class="bg-[#624B78] text-white py-8 px-4">
+    <header class="bg-primary text-white py-8 px-4">
       <div class="max-w-5xl mx-auto text-center">
         <h1 class="font-baskerville text-4xl mb-2">Glossary of Terms</h1>
         <p class="opacity-90">
@@ -38,8 +39,8 @@
             const card = document.createElement("div")
             card.className = "bg-white p-6 rounded-2xl shadow"
             card.innerHTML = `
-            <dt class="font-semibold text-[#624B78] mb-2">${term}</dt>
-            <dd class="text-sm text-[#45375a]">${definition}</dd>
+            <dt class="font-semibold text-primary mb-2">${term}</dt>
+            <dd class="text-sm text-primary-dark">${definition}</dd>
           `
             container.appendChild(card)
           })
