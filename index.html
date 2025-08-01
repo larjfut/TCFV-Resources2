@@ -69,6 +69,12 @@
       <!-- Category Heading -->
       <div id="category-heading" class="px-4 md:px-12 mb-2"></div>
 
+      <!-- Breadcrumb -->
+      <div
+        id="breadcrumb"
+        class="sticky top-0 bg-[#EEE6F6] z-20 px-4 md:px-12 py-2 mb-4 text-sm"
+      ></div>
+
       <!-- Category Cards in padded container -->
       <div class="px-2 md:px-4">
         <div id="card-grid-wrapper">
@@ -85,6 +91,7 @@
           id="resource-grid"
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6"
         ></div>
+        <div id="pagination" class="flex justify-center mt-6"></div>
       </div>
     </div>
 
@@ -364,6 +371,12 @@
         const resGrid = document.getElementById("resource-grid")
         const categoryHeading = document.getElementById("category-heading")
         const cardGridWrapper = document.getElementById("card-grid-wrapper")
+        const breadcrumb = document.getElementById("breadcrumb")
+        const pagination = document.getElementById("pagination")
+        const scrollTopBtn = document.getElementById("scroll-top")
+
+        const itemsPerPage = 20
+        let currentPage = 1
 
         // Button elements
         const showAllBtn = document.getElementById("show-all-cards")
@@ -391,6 +404,12 @@
           tabAud.addEventListener("click", () => switchTab("audience"))
           showAllBtn.addEventListener("click", showAllCards)
           clearBtn.addEventListener("click", clearFilters)
+          scrollTopBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" })
+          })
+          window.addEventListener("scroll", () => {
+            scrollTopBtn.classList.toggle("hidden", window.scrollY < 200)
+          })
           updateTabStyles()
           renderCards()
         }
@@ -401,9 +420,11 @@
           showAllResources = false
           cardGridWrapper.style.display = ""
           resGrid.innerHTML = ""
+          currentPage = 1
           updateTabStyles()
           renderCards()
           categoryHeading.innerHTML = ""
+          updateBreadcrumb()
         }
 
         function updateTabStyles() {
@@ -467,6 +488,7 @@
 
         function selectCategory(item) {
           selectedCategory = item
+          currentPage = 1
           showAllResources = false
           cardGridWrapper.style.display = "none"
           renderResources()
@@ -490,7 +512,6 @@
 
           resGrid.innerHTML = ""
 
-          // Only show resources for the selected category
           const filtered = selectedCategory
             ? resources.filter((r) =>
                 r[activeTab === "topic" ? "topics" : "audiences"].includes(
@@ -503,10 +524,16 @@
             resGrid.innerHTML = selectedCategory
               ? '<p class="text-center text-primary-dark py-6">No resources found for this category.</p>'
               : ""
+            pagination.innerHTML = ""
             return
           }
 
-          filtered.forEach((r) => {
+          const totalPages = Math.ceil(filtered.length / itemsPerPage)
+          currentPage = Math.min(currentPage, totalPages)
+          const start = (currentPage - 1) * itemsPerPage
+          const pageItems = filtered.slice(start, start + itemsPerPage)
+
+          pageItems.forEach((r) => {
             const card = document.createElement("div")
             card.className = "bg-white p-6 rounded-2xl shadow-lg"
             card.innerHTML = `
@@ -546,6 +573,9 @@
             `
             resGrid.appendChild(card)
           })
+
+          renderPagination(totalPages, renderResources)
+          updateBreadcrumb()
         }
 
         function renderAllResources() {
@@ -556,10 +586,18 @@
 
           if (!resources.length) {
             resGrid.innerHTML =
-              '<p class="text-center text-primary-dark py-6">No resources found.</p>'
+              '<p class="text-center text-[#45375a] py-6">No resources found.</p>'
+            pagination.innerHTML = ""
+
             return
           }
-          resources.forEach((r) => {
+
+          const totalPages = Math.ceil(resources.length / itemsPerPage)
+          currentPage = Math.min(currentPage, totalPages)
+          const start = (currentPage - 1) * itemsPerPage
+          const pageItems = resources.slice(start, start + itemsPerPage)
+
+          pageItems.forEach((r) => {
             const card = document.createElement("div")
             card.className = "bg-white p-6 rounded-2xl shadow-lg"
             card.innerHTML = `
@@ -599,10 +637,14 @@
             `
             resGrid.appendChild(card)
           })
+
+          renderPagination(totalPages, renderAllResources)
+          updateBreadcrumb()
         }
 
         function showAllCards() {
           selectedCategory = null
+          currentPage = 1
           showAllResources = true
           renderAllResources()
         }
@@ -610,13 +652,81 @@
         function clearFilters() {
           selectedCategory = null
           showAllResources = false
+          currentPage = 1
           categoryHeading.innerHTML = ""
           cardGridWrapper.style.display = ""
           renderCards()
           resGrid.innerHTML = ""
+          updateBreadcrumb()
+        }
+
+        function renderPagination(totalPages, rerender) {
+          pagination.innerHTML = ""
+          if (totalPages <= 1) return
+          const prev = document.createElement("button")
+          prev.textContent = "Prev"
+          prev.className = "px-3 py-1 mx-1 bg-[#AC95C1] text-white rounded"
+          prev.disabled = currentPage === 1
+          prev.addEventListener("click", () => {
+            if (currentPage > 1) {
+              currentPage--
+              rerender()
+            }
+          })
+          const next = document.createElement("button")
+          next.textContent = "Next"
+          next.className = "px-3 py-1 mx-1 bg-[#AC95C1] text-white rounded"
+          next.disabled = currentPage === totalPages
+          next.addEventListener("click", () => {
+            if (currentPage < totalPages) {
+              currentPage++
+              rerender()
+            }
+          })
+          pagination.appendChild(prev)
+          const info = document.createElement("span")
+          info.textContent = `Page ${currentPage} of ${totalPages}`
+          info.className = "px-2"
+          pagination.appendChild(info)
+          pagination.appendChild(next)
+        }
+
+        function updateBreadcrumb() {
+          breadcrumb.innerHTML = ""
+          if (!selectedCategory && !showAllResources) return
+          const items = activeTab === "topic" ? topics : audiences
+          if (selectedCategory) {
+            const nav = document.createElement("div")
+            nav.innerHTML = `<span class="font-semibold">${selectedCategory.name}</span>`
+            breadcrumb.appendChild(nav)
+          }
+          const links = document.createElement("div")
+          links.className = "mt-1 flex flex-wrap gap-2"
+          items.forEach((c) => {
+            const a = document.createElement("a")
+            a.href = "#"
+            a.textContent = c.name
+            a.className = `underline text-[#624B78] text-xs ${
+              selectedCategory && c.id === selectedCategory.id
+                ? "font-bold"
+                : ""
+            }`
+            a.addEventListener("click", (e) => {
+              e.preventDefault()
+              selectCategory(c)
+            })
+            links.appendChild(a)
+          })
+          breadcrumb.appendChild(links)
         }
       })()
     </script>
+    <button
+      id="scroll-top"
+      class="hidden fixed bottom-6 right-6 bg-[#624B78] text-white p-3 rounded-full shadow-lg"
+    >
+      <i class="fas fa-arrow-up"></i>
+    </button>
     <script type="module" src="./js/nav.js"></script>
   </body>
 </html>
