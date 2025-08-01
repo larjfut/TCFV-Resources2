@@ -5,14 +5,9 @@
     <title>Events & Trainings – TCFV Resources</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="module">
-      import { setupSearch } from "./js/search.js"
-      const input = document.getElementById("site-search")
-      const results = document.getElementById("search-results")
-      setupSearch(input, results)
-    </script>
   </head>
   <body class="bg-[#EEE6F6] text-[#2c2135] font-montserrat">
+    <div id="nav-placeholder"></div>
     <!-- Header -->
     <header class="bg-[#624B78] text-white py-8 px-4">
       <div class="max-w-5xl mx-auto text-center">
@@ -22,18 +17,6 @@
         <p class="opacity-90">Register for webinars, workshops, and more.</p>
       </div>
     </header>
-    <div class="max-w-5xl mx-auto mt-4 relative">
-      <input
-        id="site-search"
-        type="search"
-        placeholder="Search…"
-        class="w-full p-3 rounded-xl border border-[#AC95C1]"
-      />
-      <div
-        id="search-results"
-        class="absolute left-0 right-0 bg-white rounded-b-xl shadow z-10"
-      ></div>
-    </div>
 
     <!-- Events List -->
     <main class="max-w-5xl mx-auto p-4 space-y-6">
@@ -83,11 +66,6 @@
       }
       document.addEventListener("DOMContentLoaded", loadEvents)
     </script>
-    <script type="module">
-      import { setupSearch } from "./js/search.js"
-      const input = document.getElementById("site-search")
-      const results = document.getElementById("search-results")
-      setupSearch(input, results)
-    </script>
+    <script type="module" src="./js/nav.js"></script>
   </body>
 </html>
