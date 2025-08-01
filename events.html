@@ -5,11 +5,12 @@
     <title>Events & Trainings – TCFV Resources</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="bg-[#EEE6F6] text-[#2c2135] font-montserrat">
+  <body class="bg-accent text-dark font-montserrat">
     <div id="nav-placeholder"></div>
     <!-- Header -->
-    <header class="bg-[#624B78] text-white py-8 px-4">
+    <header class="bg-primary text-white py-8 px-4">
       <div class="max-w-5xl mx-auto text-center">
         <h1 class="font-baskerville text-4xl mb-2">
           Upcoming Events & Trainings
@@ -40,7 +41,7 @@
             h2.textContent = title
 
             const dateP = document.createElement("p")
-            dateP.className = "text-sm text-[#45375a] italic mb-2"
+            dateP.className = "text-sm text-primary-dark italic mb-2"
             dateP.textContent = new Date(date).toLocaleDateString()
 
             const descP = document.createElement("p")
@@ -50,7 +51,7 @@
             const a = document.createElement("a")
             a.href = link
             a.target = "_blank"
-            a.className = "text-[#624B78] underline font-semibold"
+            a.className = "text-primary underline font-semibold transition duration-300 hover:text-primary-dark focus:outline-none focus:ring-2 focus:ring-primary"
             a.textContent = "Learn More"
 
             card.appendChild(h2)

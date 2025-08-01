@@ -6,6 +6,7 @@
     <title>TCFV Resource Hub</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css" />
     <!-- Font Awesome for icons -->
     <link
       rel="stylesheet"
@@ -14,14 +15,14 @@
       referrerpolicy="no-referrer"
     />
   </head>
-  <body class="bg-[#EEE6F6] text-[#2c2135] font-montserrat">
+  <body class="bg-accent text-dark font-montserrat">
     <div id="nav-placeholder"></div>
     <div class="max-w-7xl mx-auto p-6">
       <!-- Header -->
-      <h1 class="text-4xl font-baskerville mb-2 text-[#624B78]">
+      <h1 class="text-4xl font-baskerville mb-2 text-primary">
         Resource Hub
       </h1>
-      <p class="text-lg text-[#45375a] mb-6">
+      <p class="text-lg text-primary-dark mb-6">
         Browse resources by topic or audience
       </p>
 
@@ -33,14 +34,14 @@
         <div class="flex space-x-5">
           <button
             id="tab-topic"
-            class="flex items-center gap-3 px-8 py-4 text-2xl font-extrabold rounded-3xl shadow-lg transition bg-[#624B78] text-white hover:bg-[#45375a] hover:scale-105 active:scale-100 focus:outline-none"
+            class="flex items-center gap-3 px-8 py-4 text-2xl font-extrabold rounded-3xl shadow-lg transition duration-300 bg-primary text-white hover:bg-primary-dark hover:scale-105 active:scale-100 focus:outline-none focus:ring-2 focus:ring-primary"
           >
             <i class="fas fa-tags text-3xl"></i>
             Topic
           </button>
           <button
             id="tab-audience"
-            class="flex items-center gap-3 px-8 py-4 text-2xl font-extrabold rounded-3xl shadow-lg transition bg-white text-[#624B78] border-4 border-[#624B78] hover:bg-[#f3eff9] hover:scale-105 active:scale-100 focus:outline-none"
+            class="flex items-center gap-3 px-8 py-4 text-2xl font-extrabold rounded-3xl shadow-lg transition duration-300 bg-white text-primary border-4 border-primary hover:bg-accent hover:scale-105 active:scale-100 focus:outline-none focus:ring-2 focus:ring-primary"
           >
             <i class="fas fa-users text-3xl"></i>
             Audience
@@ -52,13 +53,13 @@
         >
           <button
             id="show-all-cards"
-            class="px-4 py-2 bg-[#624B78] text-white rounded-xl text-base hover:bg-[#45375a] transition h-12 font-semibold"
+            class="px-4 py-2 bg-primary text-white rounded-xl text-base hover:bg-primary-dark transition duration-300 h-12 font-semibold focus:outline-none focus:ring-2 focus:ring-primary"
           >
             Show All Cards
           </button>
           <button
             id="clear-filters"
-            class="px-4 py-2 bg-[#AC95C1] text-white rounded-xl text-base hover:bg-[#8f7ca5] transition h-12 font-semibold"
+            class="px-4 py-2 bg-secondary text-white rounded-xl text-base hover:bg-secondary-dark transition duration-300 h-12 font-semibold focus:outline-none focus:ring-2 focus:ring-primary"
           >
             Clear Filters
           </button>
@@ -407,35 +408,35 @@
 
         function updateTabStyles() {
           if (activeTab === "topic") {
-            tabTopic.classList.add("bg-[#624B78]", "text-white")
+            tabTopic.classList.add("bg-primary", "text-white")
             tabTopic.classList.remove(
               "bg-white",
-              "text-[#624B78]",
+              "text-primary",
               "border",
-              "border-[#624B78]",
+              "border-primary",
             )
             tabAud.classList.add(
               "bg-white",
-              "text-[#624B78]",
+              "text-primary",
               "border",
-              "border-[#624B78]",
+              "border-primary",
             )
-            tabAud.classList.remove("bg-[#624B78]", "text-white")
+            tabAud.classList.remove("bg-primary", "text-white")
           } else {
-            tabAud.classList.add("bg-[#624B78]", "text-white")
+            tabAud.classList.add("bg-primary", "text-white")
             tabAud.classList.remove(
               "bg-white",
-              "text-[#624B78]",
+              "text-primary",
               "border",
-              "border-[#624B78]",
+              "border-primary",
             )
             tabTopic.classList.add(
               "bg-white",
-              "text-[#624B78]",
+              "text-primary",
               "border",
-              "border-[#624B78]",
+              "border-primary",
             )
-            tabTopic.classList.remove("bg-[#624B78]", "text-white")
+            tabTopic.classList.remove("bg-primary", "text-white")
           }
         }
 
@@ -455,8 +456,8 @@
               "bg-white rounded-xl p-3 shadow cursor-pointer hover:shadow-lg transition"
             el.innerHTML = `
       <div class="flex items-center justify-center text-center gap-2">
-        <span class="text-2xl text-[#624B78]">${item.icon}</span>
-        <span class="text-base font-medium text-[#624B78]">${item.name}</span>
+        <span class="text-2xl text-primary">${item.icon}</span>
+        <span class="text-base font-medium text-primary">${item.name}</span>
       </div>
     `
             el.addEventListener("click", () => selectCategory(item))
@@ -475,11 +476,11 @@
           // Set heading/description if category is selected
           if (selectedCategory) {
             categoryHeading.innerHTML = `
-              <div class="text-4xl font-extrabold text-[#624B78] mb-2 flex items-center gap-3">
+              <div class="text-4xl font-extrabold text-primary mb-2 flex items-center gap-3">
                 <span class="text-5xl">${selectedCategory.icon}</span>
                 ${selectedCategory.name}
               </div>
-              <div class="text-xl text-[#45375a] mb-6">
+              <div class="text-xl text-primary-dark mb-6">
                 ${selectedCategory.description || ""}
               </div>
             `
@@ -500,7 +501,7 @@
 
           if (!filtered.length) {
             resGrid.innerHTML = selectedCategory
-              ? '<p class="text-center text-[#45375a] py-6">No resources found for this category.</p>'
+              ? '<p class="text-center text-primary-dark py-6">No resources found for this category.</p>'
               : ""
             return
           }
@@ -510,12 +511,12 @@
             card.className = "bg-white p-6 rounded-2xl shadow-lg"
             card.innerHTML = `
               <div class="flex items-center mb-2">
-                <div class="text-2xl mr-3 text-[#624B78]">${r.icon}</div>
+                <div class="text-2xl mr-3 text-primary">${r.icon}</div>
                 <h3 class="text-lg font-semibold">${r.name}</h3>
               </div>
-              <p class="text-sm text-[#45375a] mb-2">${r.summary}</p>
-              <p class="text-sm text-[#45375a] mb-2"><strong>Date:</strong> ${r.date}</p>
-              <p class="text-sm text-[#45375a] mb-2">
+              <p class="text-sm text-primary-dark mb-2">${r.summary}</p>
+              <p class="text-sm text-primary-dark mb-2"><strong>Date:</strong> ${r.date}</p>
+              <p class="text-sm text-primary-dark mb-2">
                 <strong>Topics:</strong> 
                 ${
                   r.topics && r.topics.length
@@ -528,7 +529,7 @@
                     : "Uncategorized"
                 }
               </p>
-              <p class="text-sm text-[#45375a] mb-4">
+              <p class="text-sm text-primary-dark mb-4">
                 <strong>Audience:</strong>
                 ${
                   r.audiences && r.audiences.length
@@ -541,7 +542,7 @@
                     : "Uncategorized"
                 }
               </p>
-              <a href="${r.link}" target="_blank" class="inline-block mt-2 px-4 py-2 bg-[#624B78] text-white rounded-xl hover:bg-[#45375a] text-sm">Open Resource</a>
+              <a href="${r.link}" target="_blank" class="inline-block mt-2 px-4 py-2 bg-primary text-white rounded-xl hover:bg-primary-dark transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-primary">Open Resource</a>
             `
             resGrid.appendChild(card)
           })
@@ -555,7 +556,7 @@
 
           if (!resources.length) {
             resGrid.innerHTML =
-              '<p class="text-center text-[#45375a] py-6">No resources found.</p>'
+              '<p class="text-center text-primary-dark py-6">No resources found.</p>'
             return
           }
           resources.forEach((r) => {
@@ -563,12 +564,12 @@
             card.className = "bg-white p-6 rounded-2xl shadow-lg"
             card.innerHTML = `
               <div class="flex items-center mb-2">
-                <div class="text-2xl mr-3 text-[#624B78]">${r.icon}</div>
+                <div class="text-2xl mr-3 text-primary">${r.icon}</div>
                 <h3 class="text-lg font-semibold">${r.name}</h3>
               </div>
-              <p class="text-sm text-[#45375a] mb-2">${r.summary}</p>
-              <p class="text-sm text-[#45375a] mb-2"><strong>Date:</strong> ${r.date}</p>
-              <p class="text-sm text-[#45375a] mb-2">
+              <p class="text-sm text-primary-dark mb-2">${r.summary}</p>
+              <p class="text-sm text-primary-dark mb-2"><strong>Date:</strong> ${r.date}</p>
+              <p class="text-sm text-primary-dark mb-2">
                 <strong>Topics:</strong> 
                 ${
                   r.topics && r.topics.length
@@ -581,7 +582,7 @@
                     : "Uncategorized"
                 }
               </p>
-              <p class="text-sm text-[#45375a] mb-4">
+              <p class="text-sm text-primary-dark mb-4">
                 <strong>Audience:</strong>
                 ${
                   r.audiences && r.audiences.length
@@ -594,7 +595,7 @@
                     : "Uncategorized"
                 }
               </p>
-              <a href="${r.link}" target="_blank" class="inline-block mt-2 px-4 py-2 bg-[#624B78] text-white rounded-xl hover:bg-[#45375a] text-sm">Open Resource</a>
+              <a href="${r.link}" target="_blank" class="inline-block mt-2 px-4 py-2 bg-primary text-white rounded-xl hover:bg-primary-dark transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-primary">Open Resource</a>
             `
             resGrid.appendChild(card)
           })

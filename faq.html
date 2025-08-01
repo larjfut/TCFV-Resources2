@@ -5,11 +5,12 @@
     <title>Help Center – TCFV Resources</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="bg-[#EEE6F6] text-[#2c2135] font-montserrat">
+  <body class="bg-accent text-dark font-montserrat">
     <div id="nav-placeholder"></div>
     <!-- Header -->
-    <header class="bg-[#624B78] text-white py-8 px-4">
+    <header class="bg-primary text-white py-8 px-4">
       <div class="max-w-5xl mx-auto text-center">
         <h1 class="font-baskerville text-4xl mb-2">Help Center</h1>
         <p class="opacity-90">
@@ -25,7 +26,7 @@
         id="faq-search"
         type="search"
         placeholder="Search FAQs…"
-        class="w-full p-3 rounded-xl border border-[#AC95C1]"
+        class="w-full p-3 rounded-xl border border-secondary transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary"
       />
 
       <!-- FAQ list container -->
@@ -44,7 +45,7 @@
 
           const btn = document.createElement("button")
           btn.className =
-            "w-full text-left bg-white p-4 rounded-xl shadow focus:outline-none focus:ring-2 focus:ring-[#AC95C1]"
+            "w-full text-left bg-white p-4 rounded-xl shadow transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary"
           btn.setAttribute("aria-expanded", "false")
           btn.dataset.idx = i
 
