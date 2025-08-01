@@ -6,12 +6,6 @@
     <title>TCFV Resource Hub</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="module">
-      import { setupSearch } from "./js/search.js"
-      const input = document.getElementById("site-search")
-      const results = document.getElementById("search-results")
-      setupSearch(input, results)
-    </script>
     <!-- Font Awesome for icons -->
     <link
       rel="stylesheet"
@@ -21,6 +15,7 @@
     />
   </head>
   <body class="bg-[#EEE6F6] text-[#2c2135] font-montserrat">
+    <div id="nav-placeholder"></div>
     <div class="max-w-7xl mx-auto p-6">
       <!-- Header -->
       <h1 class="text-4xl font-baskerville mb-2 text-[#624B78]">
@@ -29,18 +24,6 @@
       <p class="text-lg text-[#45375a] mb-6">
         Browse resources by topic or audience
       </p>
-      <div class="relative mt-4">
-        <input
-          id="site-search"
-          type="search"
-          placeholder="Search…"
-          class="w-full p-3 rounded-xl border border-[#AC95C1]"
-        />
-        <div
-          id="search-results"
-          class="absolute left-0 right-0 bg-white rounded-b-xl shadow z-10"
-        ></div>
-      </div>
 
       <!-- Tabs + Button Bar -->
       <div
@@ -633,11 +616,6 @@
         }
       })()
     </script>
-    <script type="module">
-      import { setupSearch } from "./js/search.js"
-      const input = document.getElementById("site-search")
-      const results = document.getElementById("search-results")
-      setupSearch(input, results)
-    </script>
+    <script type="module" src="./js/nav.js"></script>
   </body>
 </html>
